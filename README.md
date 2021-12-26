@@ -1,2 +1,2 @@
 # gointerpreter
-아!루
+Interpreter write by Golang
