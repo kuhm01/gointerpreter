@@ -20,3 +20,4 @@ n장 <챕터명> - <부챕터명> : 완료
 
 ## 실행해보기
 test : go test ./(package name that you want to test)
+main : go run main.go
