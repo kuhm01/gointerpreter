@@ -15,3 +15,5 @@ ISBN : 978-89-6626-316-5
 ## 구현하는 언어
 명칭 : Monkey
 
+## 실행해보기
+test : go test ./(package name that you want to test)
