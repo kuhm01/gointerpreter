@@ -10,7 +10,7 @@ ISBN : 978-89-6626-316-5
 정보 : http://www.riss.kr/search/detail/DetailView.do?p_mat_type=75f99de66db18cf6&control_no=bf9574aa039969c6ffe0bdc3ef48d419
 
 ## 정보
-사용언어 : Go (Version : 1.16.4)
+사용언어 : Go (Version : 1.17.5)
 
 ### Commit name rule
 n장 <챕터명> - <부챕터명> : 완료
