@@ -1,5 +1,7 @@
 package main
 
+//Heaven R.I.P Avicii
+
 import (
 	"fmt"
 	"monkey/repl"
