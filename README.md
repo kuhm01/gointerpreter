@@ -24,3 +24,10 @@ n장 <챕터명> - <부챕터명> : 완료
 test : go test ./(package name that you want to test)
 
 main : go run main.go
+
+## Monkey 언어 명세
+Monkey는 정수 객체 비교 시, 포인터 비교를 허용하지않습니다. 따라서 정수 비교가 Boolean 비교보다 느립니다.
+
+Monkey의 비교식에서 0은 정수로서 true로 취급됩니다.
+
+Monkey의 조건식에서 <consequence>는 truthy인 경우 평가됩니다.
