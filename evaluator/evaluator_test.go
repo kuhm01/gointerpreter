@@ -179,6 +179,7 @@ func TestErrorHandling(t *testing.T) {
 				return 1;
 			}
 			`,
+
 			"unknown operator: BOOLEAN + BOOLEAN",
 		},
 	}
