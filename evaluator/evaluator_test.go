@@ -127,7 +127,6 @@ if (10 > 1) {
   if (10 > 1) {
     return 10;
   }
-
   return 1;
 }
 `,
@@ -179,7 +178,6 @@ func TestErrorHandling(t *testing.T) {
 				return 1;
 			}
 			`,
-
 			"unknown operator: BOOLEAN + BOOLEAN",
 		},
 	}
