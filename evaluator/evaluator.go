@@ -33,6 +33,7 @@ func Eval(node ast.Node) object.Object {
 		if isError(left) {
 			return left
 		}
+    
 		right := Eval(node.Right)
 		if isError(right) {
 			return right
@@ -74,7 +75,7 @@ func evalPrefixExpression(operator string, right object.Object) object.Object {
 	case "-":
 		return evalMinusPrefixOperatorExpression(right)
 	default:
-		return newError("onknown operator: %s%s", operator, right.Type())
+		return newError("unknown operator: %s%s", operator, right.Type())
 	}
 }
 
@@ -86,8 +87,8 @@ func evalInfixExpression(operator string, left, right object.Object) object.Obje
 		return nativeBoolToBooleanObject(left != right)
 	case left.Type() != right.Type():
 		return newError("type mismatch: %s %s %s", left.Type(), operator, right.Type())
-	default:
-		return newError("unknown operator: %s%s", operator, right.Type())
+  default:
+		return newError("unknown operator: %s %s %s", left.Type(), operator, right.Type())
 	}
 }
 
@@ -209,13 +210,13 @@ func isTruthy(obj object.Object) bool {
 	}
 }
 
+func newError(format string, a ...interface{}) *object.Error {
+	return &object.Error{Message: fmt.Sprintf(format, a...)}
+}
+
 func isError(obj object.Object) bool {
 	if obj != nil {
 		return obj.Type() == object.ERROR_OBJ
 	}
 	return false
-}
-
-func newError(format string, a ...interface{}) *object.Error {
-	return &object.Error{Message: fmt.Sprintf(format, a...)}
 }
