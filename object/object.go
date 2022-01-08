@@ -15,6 +15,7 @@ const (
 	NULL_OBJ         = "NULL"
 	RETURN_VALUE_OBJ = "RETURN_VALUE"
 	FUNCTION_OBJ     = "FUNCTION"
+	STRING_OBJ       = "STRING"
 	ERROR_OBJ        = "ERROR"
 )
 
@@ -39,6 +40,10 @@ type Function struct {
 	Parameters []*ast.Identifier
 	Body       *ast.BlockStatement
 	Env        *Environment
+}
+
+type String struct {
+	Value string
 }
 
 type Error struct {
@@ -81,3 +86,6 @@ func (f *Function) Inspect() string {
 
 	return out.String()
 }
+
+func (s *String) Type() ObjectType { return STRING_OBJ }
+func (s *String) Inspect() string  { return s.Value }
