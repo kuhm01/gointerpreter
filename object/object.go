@@ -26,6 +26,7 @@ type Object interface {
 }
 
 type BuiltinFunction func(args ...Object) Object
+
 type Builtin struct {
 	Fn BuiltinFunction
 }
