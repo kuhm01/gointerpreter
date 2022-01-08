@@ -10,6 +10,7 @@ import (
 type ObjectType string
 
 const (
+	BUILTIN_OBJ      = "BUILTIN"
 	INTEGER_OBJ      = "INTEGER"
 	BOOLEAN_OBJ      = "BOOLEAN"
 	NULL_OBJ         = "NULL"
@@ -22,6 +23,11 @@ const (
 type Object interface {
 	Type() ObjectType
 	Inspect() string
+}
+
+type BuiltinFunction func(args ...Object) Object
+type Builtin struct {
+	Fn BuiltinFunction
 }
 
 type Integer struct {
@@ -89,3 +95,6 @@ func (f *Function) Inspect() string {
 
 func (s *String) Type() ObjectType { return STRING_OBJ }
 func (s *String) Inspect() string  { return s.Value }
+
+func (b *Builtin) Type() ObjectType { return BUILTIN_OBJ }
+func (b *Builtin) Inspect() string  { return "builtin function" }
