@@ -36,6 +36,7 @@ Monkey의 비교식에서 0은 정수로서 true로 취급됩니다.
 Monkey의 조건식에서 `<consequence>`는 truthy인 경우 평가됩니다.
 
 ## Monkey 사용해보기
+#### REPL은 여러 줄을 인식하지 못 함
 이름에 값 바인딩하기
 ```Monkey
 let age = 1;
@@ -96,5 +97,73 @@ let addTwo = fn(x) {
 twice(addTwo, 2); // = 6
 ```
 
+## 내장 함수
+len(arr) : return length of Array
+```Monkey
+let a = [1, 2, 3]
+len(a) //return 3
+
+```
+
+first(arr) : return first element of Array
+```Monkey
+let a = [1, 2, 3]
+first(a) //return 1
+
+```
+
+last(arr) : return last element of Array
+```Monkey
+let a = [1, 2, 3]
+last(a) //return 3
+
+```
+
+rest(arr) : return new Array except for first element
+```Monkey
+let a = [1, 2, 3]
+rest(a) //return [2, 3]
+
+```
+
+push(arr, var) : your variable push in Array
+```Monkey
+let a = [1, 2, 3]
+push(a, 4) //return [1, 2, 3, 4]
+```
+
+puts(var) : Standard Print Function
+```Monkey
+let a = [1, 2, 3]
+let b = {"one": 1, "two": 2}
+let c = fn(x, y) { return x + y }
+
+puts(a) 
+/*print
+
+[1, 2, 3]
+null
+
+*/
+
+puts(b)
+/*print
+
+{one: 1, two: 2}
+null
+
+*/
+
+puts(c)
+/*
+
+fn(x, y) {
+return (x + y);
+}
+null
+
+*/
+```
+
 출처</br>
-토르슈텐 발, 밑바닥부터 만드는 인터프리터 INTERPRETER in go (n.p.: 도서출판 인사이트, n.d.), 13-15.
+토르슈텐 발, 밑바닥부터 만드는 인터프리터 INTERPRETER in go (n.p.: 도서출판 인사이트, n.d.), 13-15, 281-286, 315-317

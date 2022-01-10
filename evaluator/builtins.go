@@ -5,6 +5,14 @@ import (
 	"monkey/object"
 )
 
+/*
+All variable that written by book is
+"function name": &object.Builtin{
+	Fn: ~~~
+	~~~
+}
+*/
+
 var builtins = map[string]*object.Builtin{
 	"len": {
 		Fn: func(args ...object.Object) object.Object {
