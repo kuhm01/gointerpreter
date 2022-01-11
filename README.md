@@ -167,3 +167,15 @@ null
 
 출처</br>
 토르슈텐 발, 밑바닥부터 만드는 인터프리터 INTERPRETER in go (n.p.: 도서출판 인사이트, n.d.), 13-15, 281-286, 315-317
+
+### 실습자가 추가한 내장함수</br>
+pop(array, var) : return new Array except for array[var]
+```Monkey
+let a = [1, 2, 3]
+pop(a, 2) //return [1, 2]
+pop(a, 1) //return [1, 3]
+pop(a, -1) //return error
+
+let b = []
+pop(b, "any (integer)value") //return error
+```
