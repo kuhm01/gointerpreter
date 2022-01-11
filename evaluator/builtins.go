@@ -125,4 +125,53 @@ var builtins = map[string]*object.Builtin{
 			return NULL
 		},
 	},
+
+	//실습자 정의 함수
+	//신뢰도 : 몰?루
+	"pop": {
+		Fn: func(args ...object.Object) object.Object {
+			if len(args) != 2 {
+				return newError("wrong number of arguments. got=%d, want=2", len(args))
+			}
+
+			if args[0].Type() != object.ARRAY_OBJ {
+				return newError("argument to pop must be ARRAY, got %s", args[0].Type())
+			}
+
+			if args[1].Type() != object.INTEGER_OBJ {
+				return newError("argument to pop must be INTEGER, got %s", args[1].Type())
+			}
+
+			arr := args[0].(*object.Array)
+			length := len(arr.Elements)
+
+			if length == 0 {
+				return newError("array is empty, length %d, got %s", length, arr.Elements)
+			}
+
+			userIndex := args[1].(*object.Integer).Value
+
+			if 0 > userIndex || userIndex > int64(length-1) {
+				return newError("argument is beyond the scope of an array, got %d", userIndex)
+			}
+
+			newElements := make([]object.Object, length-1)
+			i := 0
+			j := 0
+			for i < length-1 {
+				if j == int(userIndex) {
+					j++
+					newElements[i] = arr.Elements[j]
+					i++
+					j++
+				} else {
+					newElements[i] = arr.Elements[j]
+					i++
+					j++
+				}
+			}
+
+			return &object.Array{Elements: newElements}
+		},
+	},
 }
