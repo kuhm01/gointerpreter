@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"monkey/ast"
 	"monkey/object"
+	"strings"
 )
 
 var (
@@ -160,6 +161,8 @@ func evalInfixExpression(operator string, left, right object.Object) object.Obje
 		return evalIntegerInfixExpression(operator, left, right)
 	case left.Type() == object.STRING_OBJ && right.Type() == object.STRING_OBJ:
 		return evalStringInfixExpression(operator, left, right)
+	case left.Type() == object.STRING_OBJ && right.Type() == object.INTEGER_OBJ:
+		return evalStringMultiIntegerInfixExpression(operator, left, right)
 	case operator == "==":
 		return nativeBoolToBooleanObject(left == right)
 	case operator == "!=":
@@ -205,6 +208,26 @@ func evalStringInfixExpression(operator string, left, right object.Object) objec
 	leftVal := left.(*object.String).Value
 	rightVal := right.(*object.String).Value
 	return &object.String{Value: leftVal + rightVal}
+}
+
+func evalStringMultiIntegerInfixExpression(operator string, left, right object.Object) object.Object {
+	if operator != "*" {
+		return newError("unknown operator: %s %s %s", left.Type(), operator, right.Type())
+	}
+	leftStr := left.(*object.String).Value
+	rightInt := right.(*object.Integer).Value
+
+	if rightInt == 0 {
+		return &object.String{Value: ""}
+	}
+
+	if rightInt < 0 {
+		return newError("wrong integer argument. got=%d", rightInt)
+	}
+
+	result := strings.Repeat(leftStr, int(rightInt))
+
+	return &object.String{Value: result}
 }
 
 func evalBangOperatorExpression(right object.Object) object.Object {

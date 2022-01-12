@@ -168,6 +168,14 @@ null
 출처</br>
 토르슈텐 발, 밑바닥부터 만드는 인터프리터 INTERPRETER in go (n.p.: 도서출판 인사이트, n.d.), 13-15, 281-286, 315-317
 
+### 실습자가 추가한 기능</br>
+STRING * INTEGER
+```Monkey
+"hello" * 3 //return "hellohellohello"
+"hello" * 0 //return ""
+"hello" * a nagative number //return error
+```
+
 ### 실습자가 추가한 내장함수</br>
 pop(array, var) : return new Array except for array[var]
 ```Monkey
