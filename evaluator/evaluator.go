@@ -163,6 +163,8 @@ func evalInfixExpression(operator string, left, right object.Object) object.Obje
 		return evalStringInfixExpression(operator, left, right)
 	case left.Type() == object.STRING_OBJ && right.Type() == object.INTEGER_OBJ:
 		return evalStringMultiIntegerInfixExpression(operator, left, right)
+	case left.Type() == object.BOOLEAN_OBJ && right.Type() == object.BOOLEAN_OBJ:
+		return evalBooleanExpression(operator, left, right)
 	case operator == "==":
 		return nativeBoolToBooleanObject(left == right)
 	case operator == "!=":
@@ -228,6 +230,17 @@ func evalStringMultiIntegerInfixExpression(operator string, left, right object.O
 	result := strings.Repeat(leftStr, int(rightInt))
 
 	return &object.String{Value: result}
+}
+
+func evalBooleanExpression(operator string, left, right object.Object) object.Object {
+	switch operator {
+	case "+":
+		return orBoolean(left, right)
+	case "*":
+		return andBoolean(left, right)
+	default:
+		return newError("unknown operator: %s %s %s", left.Type(), operator, right.Type())
+	}
 }
 
 func evalBangOperatorExpression(right object.Object) object.Object {
@@ -379,6 +392,22 @@ func evalIdentifier(node *ast.Identifier, env *object.Environment) object.Object
 
 func nativeBoolToBooleanObject(input bool) *object.Boolean {
 	if input {
+		return TRUE
+	}
+
+	return FALSE
+}
+
+func orBoolean(left, right object.Object) *object.Boolean {
+	if left.(*object.Boolean).Value == false && right.(*object.Boolean).Value == false {
+		return FALSE
+	}
+
+	return TRUE
+}
+
+func andBoolean(left, right object.Object) *object.Boolean {
+	if left.(*object.Boolean).Value == true && right.(*object.Boolean).Value == true {
 		return TRUE
 	}
 

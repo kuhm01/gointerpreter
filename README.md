@@ -176,6 +176,22 @@ STRING * INTEGER
 "hello" * a nagative number //return error
 ```
 
+BOOLEAN * BOOLEAN
+```Monkey
+true * true //return true
+true * false //return false
+false * true //return false
+false * false //return false
+```
+
+BOOLEAN + BOOLEAN
+```Monkey
+true + true //return true
+true + false //return true
+false + true //return true
+false + false //return true
+```
+
 ### 실습자가 추가한 내장함수</br>
 pop(array, var) : return new Array except for array[var]
 ```Monkey
