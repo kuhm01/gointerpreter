@@ -189,7 +189,7 @@ BOOLEAN + BOOLEAN
 true + true //return true
 true + false //return true
 false + true //return true
-false + false //return true
+false + false //return 
 ```
 
 ### 실습자가 추가한 내장함수</br>
