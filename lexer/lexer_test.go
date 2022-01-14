@@ -28,7 +28,24 @@ func TestNextToken(t *testing.T) {
 	"foobar"
 	"foo bar"
 	[1, 2];
-	{"foo": "bar"}
+	{"foo": "bar"} 
+
+	let float = 10.1;
+
+	10.1 < 10;
+
+	if (5.5 < 10) {
+		return true;
+	} else {
+		return false;
+	}
+
+	10.1 == 10.1;
+	10 != 9.1;
+	[1, 2.1];
+	!-/*5.5;
+	!/5.5*-;
+	5.5*!;
 	`
 
 	tests := []struct {
@@ -121,6 +138,62 @@ func TestNextToken(t *testing.T) {
 		{token.COLON, ":"},
 		{token.STRING, "bar"},
 		{token.RBRACE, "}"},
+		{token.LET, "let"},
+		{token.IDENT, "float"},
+		{token.ASSIGN, "="},
+		{token.FLOAT, "10.1"},
+		{token.SEMICOOLON, ";"},
+		{token.FLOAT, "10.1"},
+		{token.LT, "<"},
+		{token.INT, "10"},
+		{token.SEMICOOLON, ";"},
+		{token.IF, "if"},
+		{token.LPAREN, "("},
+		{token.FLOAT, "5.5"},
+		{token.LT, "<"},
+		{token.INT, "10"},
+		{token.RPAREN, ")"},
+		{token.LBRACE, "{"},
+		{token.RETURN, "return"},
+		{token.TRUE, "true"},
+		{token.SEMICOOLON, ";"},
+		{token.RBRACE, "}"},
+		{token.ELSE, "else"},
+		{token.LBRACE, "{"},
+		{token.RETURN, "return"},
+		{token.FALSE, "false"},
+		{token.SEMICOOLON, ";"},
+		{token.RBRACE, "}"},
+		{token.FLOAT, "10.1"},
+		{token.EQ, "=="},
+		{token.FLOAT, "10.1"},
+		{token.SEMICOOLON, ";"},
+		{token.INT, "10"},
+		{token.NOT_EQ, "!="},
+		{token.FLOAT, "9.1"},
+		{token.SEMICOOLON, ";"},
+		{token.LBRACKET, "["},
+		{token.INT, "1"},
+		{token.COMMA, ","},
+		{token.FLOAT, "2.1"},
+		{token.RBRACKET, "]"},
+		{token.SEMICOOLON, ";"},
+		{token.BANG, "!"},
+		{token.MINUS, "-"},
+		{token.SLASH, "/"},
+		{token.ASTERISK, "*"},
+		{token.FLOAT, "5.5"},
+		{token.SEMICOOLON, ";"},
+		{token.BANG, "!"},
+		{token.SLASH, "/"},
+		{token.FLOAT, "5.5"},
+		{token.ASTERISK, "*"},
+		{token.MINUS, "-"},
+		{token.SEMICOOLON, ";"},
+		{token.FLOAT, "5.5"},
+		{token.ASTERISK, "*"},
+		{token.BANG, "!"},
+		{token.SEMICOOLON, ";"},
 		{token.EOF, ""},
 	}
 

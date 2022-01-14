@@ -30,6 +30,7 @@ const (
 
 	IDENT = "IDENT"
 	INT   = "INT"
+	FLOAT = "FLOAT"
 
 	ASSIGN   = "="
 	PLUS     = "+"
@@ -43,6 +44,7 @@ const (
 	EQ     = "=="
 	NOT_EQ = "!="
 
+	DOT        = "."
 	COMMA      = ","
 	SEMICOOLON = ";"
 	COLON      = ":"
