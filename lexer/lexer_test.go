@@ -46,6 +46,9 @@ func TestNextToken(t *testing.T) {
 	!-/*5.5;
 	!/5.5*-;
 	5.5*!;
+
+	5.555555555555555555555555555555555;
+	5.;
 	`
 
 	tests := []struct {
@@ -193,6 +196,10 @@ func TestNextToken(t *testing.T) {
 		{token.FLOAT, "5.5"},
 		{token.ASTERISK, "*"},
 		{token.BANG, "!"},
+		{token.SEMICOOLON, ";"},
+		{token.FLOAT, "5.555555555555555555555555555555555"},
+		{token.SEMICOOLON, ";"},
+		{token.ILLEGAL, "5."},
 		{token.SEMICOOLON, ";"},
 		{token.EOF, ""},
 	}

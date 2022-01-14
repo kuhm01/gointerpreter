@@ -66,8 +66,6 @@ func (l *Lexer) NextToken() token.Token {
 		tok.Literal = l.readString()
 	case ':':
 		tok = newToken(token.COLON, l.ch)
-	case '.':
-		tok = newToken(token.DOT, l.ch)
 	case 0:
 		tok.Literal = ""
 		tok.Type = token.EOF
@@ -90,12 +88,22 @@ func (l *Lexer) NextToken() token.Token {
 
 func (l *Lexer) readNumber() (token.TokenType, string) {
 	position := l.position
+
 	flag := true
+	ilflag := false
+
 	for isDigit(l.ch) {
 		if isDot(l.ch) {
 			flag = false
+			ilflag = true
+		} else {
+			ilflag = false
 		}
 		l.readChar()
+	}
+
+	if ilflag {
+		return token.ILLEGAL, l.input[position:l.position]
 	}
 
 	if flag {
