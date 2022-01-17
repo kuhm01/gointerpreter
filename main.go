@@ -5,6 +5,7 @@ package main
 import (
 	"fmt"
 	"monkey/repl"
+	"monkey/routeoption"
 	"os"
 	"os/user"
 )
@@ -14,7 +15,13 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Printf("Hello %s! This is the Monkey programming language!\n", user.Username)
-	fmt.Printf("Feel free to type in commands\n")
-	repl.Start(os.Stdin, os.Stdout)
+
+	args := os.Args
+	if len(args) == 1 {
+		fmt.Printf("Hello %s! This is the Monkey programming language!\n", user.Username)
+		fmt.Printf("Feel free to type in commands\n")
+		repl.Start(os.Stdin, os.Stdout)
+	} else {
+		routeoption.RouteOption(args[1])
+	}
 }
