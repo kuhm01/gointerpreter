@@ -42,9 +42,10 @@ func startLPEmonkeyinterpreting(argv string) {
 		fmt.Printf("Enter the monkey file.\n")
 		return
 	}
-	//파일 읽기 및 lexing, parsing, evaluating 구현 해야 함
+
 	dat, err := ioutil.ReadFile(argv)
 	if err != nil {
+		fmt.Printf("Monkey File Error. We don't Interpreting this\n")
 		return
 	}
 	input := string(dat)
@@ -85,7 +86,7 @@ func isFile(name string) bool {
 }
 
 func printParserErrors(out io.Writer, errors []string) {
-	io.WriteString(out, "Woops! We ran into some monkey bussiness here!\n")
+	io.WriteString(out, "Interpreter Error. don't ran Interpreting\n")
 	io.WriteString(out, " parser Error:\n")
 	for _, msg := range errors {
 		io.WriteString(out, "\t"+msg+"\n")
