@@ -14,7 +14,7 @@ func TestNextToken(t *testing.T) {
 		x + y;
 	};
 	let result = add(five, ten);
-	!-/*5;
+	!-*/5;
 	5 < 10 > 5;
 
 	if (5 < 10) {
@@ -39,6 +39,10 @@ func TestNextToken(t *testing.T) {
 	} else {
 		return false;
 	}
+	/#
+	comments
+	#/
+	/##########/
 
 	10.1 == 10.1;
 	10 != 9.1;
@@ -93,8 +97,8 @@ func TestNextToken(t *testing.T) {
 		{token.SEMICOOLON, ";"},
 		{token.BANG, "!"},
 		{token.MINUS, "-"},
-		{token.SLASH, "/"},
 		{token.ASTERISK, "*"},
+		{token.SLASH, "/"},
 		{token.INT, "5"},
 		{token.SEMICOOLON, ";"},
 		{token.INT, "5"},

@@ -50,7 +50,11 @@ func (l *Lexer) NextToken() token.Token {
 			tok = newToken(token.BANG, l.ch)
 		}
 	case '/':
-		tok = newToken(token.SLASH, l.ch)
+		if l.peekChar() == '#' {
+			l.readComments()
+		} else {
+			tok = newToken(token.SLASH, l.ch)
+		}
 	case '*':
 		tok = newToken(token.ASTERISK, l.ch)
 	case '<':
@@ -173,6 +177,20 @@ func (l *Lexer) readIdentifier() string {
 		l.readChar()
 	}
 	return l.input[position:l.position]
+}
+
+func (l *Lexer) readComments() {
+	l.readChar()
+	for {
+		l.readChar()
+		if l.ch == '#' {
+			if l.peekChar() == '/' {
+				l.readChar()
+				break
+			}
+		}
+	}
+	l.NextToken()
 }
 
 func isLetter(ch byte) bool {
