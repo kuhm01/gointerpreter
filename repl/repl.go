@@ -23,7 +23,7 @@ const MONKEY_FACE = `            __,__
        \   \ '~' /   /
         '._ '-=-' _.'
            '-----'
-` //Copy from the code provided
+` //Monkey Face is Copy from the code provided book
 
 func Start(in io.Reader, out io.Writer) {
 	scanner := bufio.NewScanner(in)
