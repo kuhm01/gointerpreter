@@ -201,6 +201,9 @@ monkey help //too
 ```
 
 파일 읽기를 통한 실행
+##### 파일을 읽을 때에는 
+##### 반드시 읽을 Monkey 코드와 Monkey가 같은 폴더 내에 
+##### 위치해야 합니다.
 ```
 monkey -c filename.monkey //start interpreting
 monkey start filename.monkey //too
