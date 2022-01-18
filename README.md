@@ -7,7 +7,7 @@
 
 ISBN : 978-89-6626-316-5
 
-정보 : http://www.riss.kr/search/detail/DetailView.do?p_mat_type=75f99de66db18cf6&control_no=bf9574aa039969c6ffe0bdc3ef48d419
+정보 : http://www.riss.kr/link?id=M15913813
 
 책에서 제공되는 코드 링크 : https://interpreterbook.com/waiig_code_1.3.zip
 
@@ -18,9 +18,9 @@ ISBN : 978-89-6626-316-5
 n장 <챕터명> - <부챕터명> : 완료
 
 ## 구현하는 언어
-명칭 : Go
+명칭 : Monkey
 
-### Go
+### Monkey
 Monkey는 REPL 환경에서 작동합니다.
 
 ## 실행해보기
@@ -28,15 +28,17 @@ test : go test ./(package name that you want to test)
 
 main : go run main.go
 
-## Go 언어 명세
+## Monkey 언어 명세
 Monkey는 정수 객체 비교 시, 포인터 비교를 허용하지않습니다. 따라서 정수 비교가 Boolean 비교보다 느립니다.
 
 Monkey의 비교식에서 0은 정수로서 true로 취급됩니다.
 
 Monkey의 조건식에서 `<consequence>`는 truthy인 경우 평가됩니다.
 
-## Go 사용해보기
+## Monkey 사용해보기
 #### REPL은 여러 줄을 인식하지 못 함
+
+---
 이름에 값 바인딩하기
 ```Go
 let age = 1;
