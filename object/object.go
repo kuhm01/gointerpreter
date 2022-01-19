@@ -13,6 +13,7 @@ type ObjectType string
 const (
 	BUILTIN_OBJ      = "BUILTIN"
 	INTEGER_OBJ      = "INTEGER"
+	FLOAT_OBJ        = "FLOAT"
 	BOOLEAN_OBJ      = "BOOLEAN"
 	NULL_OBJ         = "NULL"
 	RETURN_VALUE_OBJ = "RETURN_VALUE"
@@ -36,6 +37,10 @@ type Builtin struct {
 
 type Integer struct {
 	Value int64
+}
+
+type Float struct {
+	Value float64
 }
 
 type Boolean struct {
@@ -109,6 +114,9 @@ type Null struct{}
 
 func (i *Integer) Inspect() string  { return fmt.Sprintf("%d", i.Value) }
 func (i *Integer) Type() ObjectType { return INTEGER_OBJ }
+
+func (fi *Float) Inspect() string  { return fmt.Sprintf("%f", fi.Value) }
+func (fi *Float) Type() ObjectType { return FLOAT_OBJ }
 
 func (b *Boolean) Type() ObjectType { return BOOLEAN_OBJ }
 func (b *Boolean) Inspect() string  { return fmt.Sprintf("%t", b.Value) }
