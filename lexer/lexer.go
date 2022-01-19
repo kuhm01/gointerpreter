@@ -51,7 +51,8 @@ func (l *Lexer) NextToken() token.Token {
 		}
 	case '/':
 		if l.peekChar() == '#' {
-			l.readComments()
+			tok = l.readComments()
+			return tok
 		} else {
 			tok = newToken(token.SLASH, l.ch)
 		}
@@ -179,7 +180,7 @@ func (l *Lexer) readIdentifier() string {
 	return l.input[position:l.position]
 }
 
-func (l *Lexer) readComments() {
+func (l *Lexer) readComments() token.Token {
 	l.readChar()
 	for {
 		l.readChar()
@@ -190,7 +191,8 @@ func (l *Lexer) readComments() {
 			}
 		}
 	}
-	l.NextToken()
+	l.readChar()
+	return l.NextToken()
 }
 
 func isLetter(ch byte) bool {

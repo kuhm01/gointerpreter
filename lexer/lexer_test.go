@@ -20,7 +20,7 @@ func TestNextToken(t *testing.T) {
 	if (5 < 10) {
 		return true;
 	} else {
-		return false;
+		return /# true #/ false;
 	}
 
 	10 == 10;
@@ -31,11 +31,14 @@ func TestNextToken(t *testing.T) {
 	{"foo": "bar"} 
 
 	let float = 10.1;
-
+	/# puts("hello World") #/ 
 	10.1 < 10;
 
 	if (5.5 < 10) {
 		return true;
+		/# 
+		puts("hello")
+		#/
 	} else {
 		return false;
 	}
@@ -46,7 +49,7 @@ func TestNextToken(t *testing.T) {
 
 	10.1 == 10.1;
 	10 != 9.1;
-	[1, 2.1];
+	[1, 2.1];  /# sdfse [1, 2, 3] #/
 	!-/*5.5;
 	!/5.5*-;
 	5.5*!;
