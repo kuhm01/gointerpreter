@@ -257,3 +257,12 @@ pop(a, -1) //return error
 let b = []
 pop(b, "any (integer)value") //return error
 ```
+
+integer(float type var), float(integer type var) : wrapper to integer, float
+```Go
+let a = 10 //integer
+float(a) //wrap to float : 10.000000
+
+let b = 10.1 //float
+integer(b) //wrap to integer : 10
+```
