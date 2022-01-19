@@ -165,10 +165,6 @@ func evalInfixExpression(operator string, left, right object.Object) object.Obje
 		return evalStringMultiIntegerInfixExpression(operator, left, right)
 	case left.Type() == object.BOOLEAN_OBJ && right.Type() == object.BOOLEAN_OBJ:
 		return evalBooleanExpression(operator, left, right)
-	case operator == "==":
-		return nativeBoolToBooleanObject(left == right)
-	case operator == "!=":
-		return nativeBoolToBooleanObject(left != right)
 	case left.Type() != right.Type():
 		return newError("type mismatch: %s %s %s", left.Type(), operator, right.Type())
 	default:
@@ -238,6 +234,10 @@ func evalBooleanExpression(operator string, left, right object.Object) object.Ob
 		return orBoolean(left, right)
 	case "*":
 		return andBoolean(left, right)
+	case "==":
+		return nativeBoolToBooleanObject(left == right)
+	case "!=":
+		return nativeBoolToBooleanObject(left != right)
 	default:
 		return newError("unknown operator: %s %s %s", left.Type(), operator, right.Type())
 	}
