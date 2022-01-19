@@ -13,6 +13,19 @@ All variable that written by book is
 }
 */
 
+const MONKEY_FACE = `            __,__
+   .--.  .-"     "-.  .--.
+  / .. \/  .-. .-.  \/ .. \
+ | |  '|  /   Y   \  |'  | |
+ | \   \  \ 0 | 0 /  /   / |
+  \ '- ,\.-"""""""-./, -' /
+   ''-' /_   ^ ^   _\ '-''
+       |  \._   _./  |
+       \   \ '~' /   /
+        '._ '-=-' _.'
+           '-----'
+` //Monkey Face is Copy from the code provided book
+
 var builtins = map[string]*object.Builtin{
 	"len": {
 		Fn: func(args ...object.Object) object.Object {
@@ -172,6 +185,12 @@ var builtins = map[string]*object.Builtin{
 			}
 
 			return &object.Array{Elements: newElements}
+		},
+	},
+
+	"monkey": {
+		Fn: func(args ...object.Object) object.Object {
+			return &object.String{Value: MONKEY_FACE}
 		},
 	},
 }
