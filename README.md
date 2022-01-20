@@ -266,3 +266,9 @@ float(a) //wrap to float : 10.000000
 let b = 10.1 //float
 integer(b) //wrap to integer : 10
 ```
+
+range(var) : return Array. 0 to var. var is Integer
+```Go
+range(5) //return [0, 1, 2, 3, 4]
+range(Other types than Integer) //return error
+```
