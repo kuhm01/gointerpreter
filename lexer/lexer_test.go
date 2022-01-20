@@ -56,6 +56,10 @@ func TestNextToken(t *testing.T) {
 
 	5.555555555555555555555555555555555;
 	5.;
+
+	for i = range(5) {
+		puts(i);
+	}
 	`
 
 	tests := []struct {
@@ -208,6 +212,20 @@ func TestNextToken(t *testing.T) {
 		{token.SEMICOOLON, ";"},
 		{token.ILLEGAL, "5."},
 		{token.SEMICOOLON, ";"},
+		{token.FOR, "for"},
+		{token.IDENT, "i"},
+		{token.ASSIGN, "="},
+		{token.IDENT, "range"},
+		{token.LPAREN, "("},
+		{token.INT, "5"},
+		{token.RPAREN, ")"},
+		{token.LBRACE, "{"},
+		{token.IDENT, "puts"},
+		{token.LPAREN, "("},
+		{token.IDENT, "i"},
+		{token.RPAREN, ")"},
+		{token.SEMICOOLON, ";"},
+		{token.RBRACE, "}"},
 		{token.EOF, ""},
 	}
 
