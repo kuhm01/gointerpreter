@@ -247,4 +247,23 @@ var builtins = map[string]*object.Builtin{
 			return &object.Array{Elements: arr}
 		},
 	},
+
+	"toString": {
+		Fn: func(args ...object.Object) object.Object {
+			if len(args) < 1 {
+				return newError("wrong number of arguments. got=%d, want=more than 1", len(args))
+			}
+
+			for _, ot := range args {
+				if ot.Type() != object.INTEGER_OBJ || ot.Type() != object.FLOAT_OBJ {
+					return newError("argument to must be INTEGER or FLOAT, got %s", ot.Type())
+				}
+			}
+
+			arr := []string{}
+			arr = append(arr, "")
+			return &object.Error{}
+
+		},
+	},
 }
