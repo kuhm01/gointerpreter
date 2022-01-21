@@ -272,3 +272,8 @@ range(var) : return Array. 0 to var. var is Integer
 range(5) //return [0, 1, 2, 3, 4]
 range(Other types than Integer) //return error
 ```
+
+Itoa(var) : return string from integer
+```Go
+Itoa(10) //return "10" (string type)
+```

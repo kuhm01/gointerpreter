@@ -3,6 +3,7 @@ package evaluator
 import (
 	"fmt"
 	"monkey/object"
+	"strconv"
 )
 
 /*
@@ -248,22 +249,19 @@ var builtins = map[string]*object.Builtin{
 		},
 	},
 
-	"toString": {
+	"Itoa": {
 		Fn: func(args ...object.Object) object.Object {
-			if len(args) < 1 {
-				return newError("wrong number of arguments. got=%d, want=more than 1", len(args))
+			if len(args) != 1 {
+				return newError("wrong number of arguments. got=%d, want=1", len(args))
 			}
 
-			for _, ot := range args {
-				if ot.Type() != object.INTEGER_OBJ || ot.Type() != object.FLOAT_OBJ {
-					return newError("argument to must be INTEGER or FLOAT, got %s", ot.Type())
-				}
+			if args[0].Type() != object.INTEGER_OBJ {
+				return newError("argument to must be INTEGER, got %s", args[0].Type())
 			}
 
-			arr := []string{}
-			arr = append(arr, "")
-			return &object.Error{}
+			str := strconv.Itoa(int(args[0].(*object.Integer).Value))
 
+			return &object.String{Value: str}
 		},
 	},
 }
