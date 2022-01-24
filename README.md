@@ -277,3 +277,13 @@ Itoa(var) : return string from integer
 ```Go
 Itoa(10) //return "10" (string type)
 ```
+
+typeOf(var) : return type of value
+```Go
+let a = 1 //integer type
+typeOf(a) //return INTEGER
+
+let b = "hello monkey" //string type
+typeOf(b) //return STRING
+//typeOf function is return string
+```
