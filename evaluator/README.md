@@ -1,3 +1,5 @@
+#### [본문](https://github.com/kuhm01/gointerpreter "본문")
+
 # 내장함수 목록
 
 1. __[len](#len "len 함수")__
