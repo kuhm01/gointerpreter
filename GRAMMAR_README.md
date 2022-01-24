@@ -4,9 +4,13 @@
 ---
 
 1. __[특이사항](#특이사항 "특이사항")__
-2. __[변수 이름 규칙](#변수이름규칙 "변수이름규칙")__
-3. __[변수에 값 할당](#변수에값할당 "변수에 값 할당")__
-4. __[자료형](#자료형 "자료형")__
+2. __[문장의 끝](#문장의-끝 "문장의 끝")__ 
+3. __[변수 이름 규칙](#변수이름-규칙 "변수이름 규칙")__
+4. __[변수에 값 할당](#변수에-값-할당 "변수에 값 할당")__
+5. __[자료형](#자료형 "자료형")__
+6. __[함수](#함수 "함수")__
+7. __[조건문](#조건문 "조건문")__
+8. __[연산자](#연산자 "연산자")__
 
 ---
 
@@ -19,8 +23,21 @@ Monkey의 비교식에서 0은 정수로서 true로 취급됩니다.
 Monkey의 조건식에서 `<consequence>`는 truthy인 경우 평가됩니다.
 
 ---
+## 문장의 끝
+Monkey에서 문장의 끝에는 ; 을 표기합니다.</br>
+예시
+```Go
+let a = 10;
+let b = "hello world";
+b * 2;
+```
+반드시 표기하지않아도 무방하나</br>
+문법 표준은 ; 을 표기하는 것임을 인지하시기 바랍니다.
+</br>
+</br>
 
-## 변수이름규칙
+
+## 변수이름 규칙
 변수이름은 영 대/소문자 및 "_"을 사용할 수 있습니다.
 
 ```Go
@@ -29,9 +46,18 @@ _hello //_은 처음 또는
 hel_lo //중간
 hello_ //끝에 사용가능
 ```
+또한 Monkey는 다수개의 내장함수를 기본으로 지원하는 데,</br>
+변수이름으로 내장함수의 명칭을 사용할 수 없습니다.</br>
+```Go
+let puts = 1 // error
+```
+내장함수에 대한 자세한 사항은 다음 참조.</br>
+[내장함수 목록](../main/evaluator/README.md "내장함수 목록")</br>
 </br>
 
-## 변수에값할당
+
+
+## 변수에 값 할당
 ### 선언
 변수를 선언할 때는 변수이름 앞에 let 을 사용합니다.
 ```Go
@@ -60,8 +86,9 @@ Monkey는 다음의 자료형을 제공합니다. </br>
 + STRING (문자열)
 + ARRAY (배열)
 + HASH (해시)
++ BOOLEAN (부울대수)
 
-정수와 실수 사용
+### 정수와 실수 사용
 ```Go
 let a = 10; let b = 20;
 a + b // 30
@@ -78,4 +105,182 @@ let b = 10.1 // float
 
 a + b // return error
 ```
+integer, float 함수를 통한 명시적 형변환이 필요합니다.
+다음 참고 [링크](https://github.com/kuhm01/gointerpreter/blob/main/evaluator/README.md#integer "내장함수 목록")
 
+### 문자열 사용
+```Go
+let a = "Hello World"
+```
+
+문자열은 다음의 연산을 제공합니다.</br>
+STRING + STRING</br>
+STRING * INTEGER (경고. INTEGER * STRING 은 불가. 오류를 발생하므로 주의)
+```Go
+//STRING + STRING
+"hello " + "world" // return "hello world"
+
+//STRING * INTEGER
+"hello" * 2 // return "hellohello"
+"hello" * 0 // return ""
+"hello" * a negative number // return error
+```
+
+### 배열 사용
+```Go
+let a = [1, 2.1, "string", [1, 2], {"one": 1}, true, fn(x, y) { return x + y; }]
+```
+Monkey의 배열에는 공식적으로 지원하는 모든 자료형을 원소로 취급할 수 있습니다.</br>
+위의 배열에 대해 다음이 가능합니다.
+```Go
+integer(a[1]) // return 2
+a[2] + " hello" // return "string hello"
+a[3][0] // 1
+a[4]["one"] // 1
+a[5] * false // return false
+a[6](1, 2) // return 3
+```
+단, Monkey에서 배열의 요소에 직접 값을 대입하는 것은 불가능합니다.
+```Go
+let a = [1, 2]
+a[0] = 2 // parsing error
+let a[0] = 2 //parsing error
+```
+__Monkey에서는 index를 통한 변수로의 접근자체가 구현이 안 되어있음을 참고하십시오.__
+
+### 해시 사용
+해시는 {키: 값}의 구조를 가집니다.
+```Go
+let a = {"one": 1, 2: 10.1, true: fn(x, y) { return x + y; }, "two": [1, 2]}
+```
+해시의 값에는 배열과 마찬가지로 Monkey가 지원하는 모든 자료형이 취급됩니다.</br>
+단, 해시의 키에는 정수, 부울대수, 문자열만 가능함을 인지하십시오.</br>
+위의 해시에 대해
+```Go
+a["one"] + 2 // return 3
+a[1 > 0](1, 2) // return 3
+a["two"][0] // 1
+```
+위의 강조문과 마찬가지로 index를 통한 변수로의 접근자체는 구현되어 있지않습니다.</br>
+
+### 부울대수
+Monkey는 공식적으로 부울대수를 지원합니다. 다음의 값들이 있음
+```Go
+let a = true
+let b = false
+```
+Monkey에서는 부울대수에 대한 다음의 연산을 지원합니다.</br>
+"+" : or, "*" : and
+```Go
+true + true // return true
+true + false // return true
+false + true // return true
+false + false // return false
+
+true * true // return true
+true * false // return false
+false * true // return false
+false * false // return false
+```
+</br>
+
+## 함수
+Monkey는 당연히 함수를 사용할 수 있습니다.</br>
+다음과 같이 선언하여 사용
+```Go
+let a = fn(x, y) {
+  return x + y;
+}
+```
+함수는 fn 키워드를 활용합니다. fn(매개변수) { 표현식 } 의 모양을 가집니다.</br>
+함수도 당연히 변수에 할당하여 사용해야합니다.</br>
+위의 함수 변수를 다음과 같이 사용가능
+```Go
+a(1, 2) // return 3
+```
+
+Monkey는 재귀함수의 작성을 공식적으로 지원합니다.</br>
+따라서 다음의 함수를 작성가능
+```Go
+let fibonacci = fn(x) {
+  if (x == 0) {
+    0
+  } else {
+    if (x == 1) {
+      1
+    } else {
+      fibonacci(x - 1) + fibonacci(x - 2);
+    }
+  }
+};
+```
+놀랍게도 순수한 Monkey의 언어로 작성되었습니다.</br>
+</br>
+
+또한 고차함수의 작성을 지원합니다.</br>
+따라서 다음의 함수를 작성가능
+```Go
+let twice = fn(x, y) {
+  return f(f(x));
+}
+
+let addTwo = fn(x) {
+  return x + 2;
+}
+
+twice(addTwo, 2); // 6
+```
+
+함수 내부에서 변수가 선언될 수 있습니다.</br>
+단, 해당 변수는 함수 외부에선 존재하지않습니다.
+```Go
+let a = fn(x, y) {
+  let b = 10 + x * y
+  return b + 10;
+}
+
+b // error
+```
+</br>
+
+## 조건문
+Monkey는 당연히 조건문을 지원합니다.</br>
+다음과 같이 사용가능
+```Go
+if (1 != 10) {
+  return 1;
+} else {
+  return 2;
+}
+```
+아쉽게도 else if, elif는 Monkey에서 지원하지않습니다.</br>
+물론 조건문 내부에 조건문을 활용하는 것은 가능합니다.
+```Go
+if (1 != 10) {
+  if (1 != 5) {
+    return 1;
+  } else {
+    return 2;
+  }
+} else {
+  return 3;
+}
+```
+else문은 작성 시, 반드시 if문이 끝나는 } 뒤에 이어 쓰십시오.</br>
+또한 else문은 반드시 작성할 필요 없으나, 대신 조건분기에 의해 거짓일 경우</br>
+else문이 없다면 Monkey는 null을 반환합니다.</br>
+</br>
+
+## 연산자
+Monkey는 당연하게도 연산자를 제공합니다.</br>
+
++ 사칙연산
+"+", "-", "*", "/"
+
++ 대소비교
+">", "<"
+
++ 논리비교
+"==", "!="
+
+##### 실습자가 Monkey에 반복문과 class 또는 구조체의 추가를 위해 열심히 머리를 굴리고 있습니다.
