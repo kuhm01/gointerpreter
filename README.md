@@ -183,5 +183,5 @@ let x = fn(a, b) {
 ```Go
 let puts = 1 //return error
 ```
-[내장함수 목록](../blob/main/evaluator/README.md "내장함수 목록")
-[문법](../blob/main/GRAMMAR_README.md "문법")
+[내장함수 목록](../main/evaluator/README.md "내장함수 목록")</br>
+[문법](../main/GRAMMAR_README.md "문법")
