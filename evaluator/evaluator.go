@@ -67,6 +67,15 @@ func Eval(node ast.Node, env *object.Environment) object.Object {
 		if isError(val) {
 			return val
 		}
+
+		nameArray := functionName
+
+		for _, tt := range nameArray {
+			if tt == node.Name.Value {
+				return newError("%s is builtin function. you don't use that for identifier", node.Name.Value)
+			}
+		}
+
 		env.Set(node.Name.Value, val)
 
 	case *ast.Identifier:

@@ -27,6 +27,8 @@ const MONKEY_FACE = `            __,__
            '-----'
 ` //Monkey Face is Copy from the code provided book
 
+var functionName = []string{"len", "first", "last", "rest", "push", "puts", "pop", "integer", "float", "range", "Itoa", "typeOf"}
+
 var builtins = map[string]*object.Builtin{
 	"len": {
 		Fn: func(args ...object.Object) object.Object {

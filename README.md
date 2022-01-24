@@ -99,74 +99,6 @@ let addTwo = fn(x) {
 twice(addTwo, 2); // = 6
 ```
 
-## 내장 함수
-len(arr) : return length of Array
-```Go
-let a = [1, 2, 3]
-len(a) //return 3
-
-```
-
-first(arr) : return first element of Array
-```Go
-let a = [1, 2, 3]
-first(a) //return 1
-
-```
-
-last(arr) : return last element of Array
-```Go
-let a = [1, 2, 3]
-last(a) //return 3
-
-```
-
-rest(arr) : return new Array except for first element
-```Go
-let a = [1, 2, 3]
-rest(a) //return [2, 3]
-
-```
-
-push(arr, var) : your variable push in Array
-```Go
-let a = [1, 2, 3]
-push(a, 4) //return [1, 2, 3, 4]
-```
-
-puts(var) : Standard Print Function
-```Go
-let a = [1, 2, 3]
-let b = {"one": 1, "two": 2}
-let c = fn(x, y) { return x + y }
-
-puts(a) 
-/*print
-
-[1, 2, 3]
-null
-
-*/
-
-puts(b)
-/*print
-
-{one: 1, two: 2}
-null
-
-*/
-
-puts(c)
-/*
-
-fn(x, y) {
-return (x + y);
-}
-null
-
-*/
-```
-
 출처</br>
 토르슈텐 발, 밑바닥부터 만드는 인터프리터 INTERPRETER in go (n.p.: 도서출판 인사이트, n.d.), 13-15, 281-286, 315-317
 
@@ -246,44 +178,9 @@ let x = fn(a, b) {
 10.1 != 10.1
 ```
 
-### 실습자가 추가한 내장함수</br>
-pop(array, var) : return new Array except for array[var]
+이제부터 Monkey는 미리 정의된 내장함수의 명칭을</br>
+식별자로 사용할 수 없습니다.
 ```Go
-let a = [1, 2, 3]
-pop(a, 2) //return [1, 2]
-pop(a, 1) //return [1, 3]
-pop(a, -1) //return error
-
-let b = []
-pop(b, "any (integer)value") //return error
+let puts = 1 //return error
 ```
-
-integer(float type var), float(integer type var) : wrapper to integer, float
-```Go
-let a = 10 //integer
-float(a) //wrap to float : 10.000000
-
-let b = 10.1 //float
-integer(b) //wrap to integer : 10
-```
-
-range(var) : return Array. 0 to var. var is Integer
-```Go
-range(5) //return [0, 1, 2, 3, 4]
-range(Other types than Integer) //return error
-```
-
-Itoa(var) : return string from integer
-```Go
-Itoa(10) //return "10" (string type)
-```
-
-typeOf(var) : return type of value
-```Go
-let a = 1 //integer type
-typeOf(a) //return INTEGER
-
-let b = "hello monkey" //string type
-typeOf(b) //return STRING
-//typeOf function is return string
-```
+[내장함수 목록](https://github.com/kuhm01/gointerpreter/blob/main/evaluator/README.md "내장함수 목록")
