@@ -1,17 +1,17 @@
 # 내장함수 목록
 
-1. __[len](##len "len 함수")__
-2. __[first](##first "first 함수")__
-3. __[last](##last "last 함수")__
-4. __[rest](##rest "rest 함수")__
-5. __[push](##push "push 함수")__
-6. __[puts](##puts "puts 함수")__
-7. ___[pop](##pop "pop 함수")___
-8. ___[integer](##integer "integer 함수")___
-9. ___[float](##float "float 함수")___
-10. ___[range](##range "range 함수")___
-11. ___[Itoa](##Itoa "Itoa 함수")___
-12. ___[typeOf](##typeOf "typeOf 함수")___
+1. __[len](#len "len 함수")__
+2. __[first](#first "first 함수")__
+3. __[last](#last "last 함수")__
+4. __[rest](#rest "rest 함수")__
+5. __[push](#push "push 함수")__
+6. __[puts](#puts "puts 함수")__
+7. ___[pop](#pop "pop 함수")___
+8. ___[integer](#integer "integer 함수")___
+9. ___[float](#float "float 함수")___
+10. ___[range](#range "range 함수")___
+11. ___[Itoa](#Itoa "Itoa 함수")___
+12. ___[typeOf](#typeOf "typeOf 함수")___
 
 ---
 _이탤릭체 함수_ 는 실습자가 생각하여 정의한 함수입니다.
