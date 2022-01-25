@@ -1,5 +1,3 @@
-#### [본문](https://github.com/kuhm01/gointerpreter "본문")
-
 # 내장함수 목록
 
 1. __[len](#len "len 함수")__
@@ -16,7 +14,8 @@
 12. ___[typeOf](#typeOf "typeOf 함수")___
 
 ---
-_이탤릭체 함수_ 는 실습자가 생각하여 정의한 함수입니다.
+_이탤릭체 함수_ 는 책에 없는</br>
+실습자가 따로 추가한 함수입니다.</br>
 
 ## len
 len(ARRAY) : return length of Array</br>
@@ -91,6 +90,15 @@ return (x + y);
 null
 
 */
+
+let x = "hello world"
+let y = 12
+puts(x, y)
+/*print
+
+hello world
+12
+null
 ```
 
 ## _pop_
@@ -103,7 +111,7 @@ pop(a, 1) //return [1, 3]
 pop(a, -1) //return error
 
 let b = []
-pop(b, "any (integer)value") //return error
+pop(b, "other (integer)value") //return error
 ```
 
 ## _integer_
