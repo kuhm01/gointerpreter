@@ -1,7 +1,17 @@
-# gointerpreter
+# GOINTERPRETER
 ## Interpreter written in Golang
 본 내용은 책의 내용을 실습한 프로그램입니다.
 
+---
+목차
+1. [책정보](#책정보 "책정보")
+2. [구현 정보](#구현-정보 "구현 정보")
+3. [Monkey](#Monkey "몽키")
+4. [Monkey 실행](#실행해보기 "Monkey 실행해보기")
+
+
+
+---
 ## 책정보 
 제목 : 밑바닥부터 만드는 INTERPRETER in Go
 
@@ -11,171 +21,75 @@ ISBN : 978-89-6626-316-5
 
 책에서 제공되는 코드 링크 : https://interpreterbook.com/waiig_code_1.3.zip
 
-## 정보
-사용언어 : Go (Version : 1.17.5)
+---
+## 구현 정보
+구현에 사용한 언어 : Go (Version : 1.17.5)
 
-### Commit name rule
+### 커밋 명칭의 규칙
 n장 <챕터명> - <부챕터명> : 완료
 
-## 구현하는 언어
-명칭 : Monkey
+---
+## Monkey
+이 책을 통해 우리가 구현하는 언어는 Monkey입니다.</br>
+다음에서 Monkey에 대한 정보를 제공
 
-### Monkey
-Monkey는 REPL 환경에서 작동합니다.
++ 문법
++ 내장함수
++ Monkey 실행옵션
++ REPL 지원
 
+### 문법
+Monkey의 문법에 대해 소개합니다.</br>
+Monkey에는 책에 정의된 문법이 있고 이를 표준문법이라 칭하겠습니다.</br>
+Monkey에는 표준문법 외에 실습자가 추가한 기타 문법들이 존재합니다.</br>
+[문법 열람](../main/GRAMMAR_README.md "Monkey의 문법 열람")
+</br>
+
+### 내장함수
+Monkey는 사용자의 편의를 위해 다양한 함수를 미리 구현해두었습니다.</br>
+[내장함수 목록](../main/evaluator/README.md "Monkey가 지원하는 기본 내장함수")
+</br>
+
+### Monkey 실행옵션
+Monkey는 다양한 실행옵션을 제공합니다.</br>
+옵션없이 기본모드로 실행할 경우 Monkey는 REPL환경을 제공합니다.</br>
+</br>
+옵션 내역
+* -c, start : interpreting monkey file(monkey파일을 읽어 실행합니다.)
+* -, help : printing option list
+
+### REPL 지원
+Monkey는 옵션없이 실행할 경우, REPL환경을 기본으로 제공합니다.</br>
+
+---
 ## 실행해보기
-test : go test ./(package name that you want to test)
-
-main : go run main.go
-
-
-## Monkey 사용해보기
-
-
----
-이름에 값 바인딩하기
+### 우선 Monkey 컴파일하기
+Go언어로 작성된 Monkey를 컴파일하세요!</br>
+다음 과정으로 컴파일
 ```Go
-let age = 1;
-let name = "Go";
-let result = 10 * (20 / 2);
+go build
 ```
-
-정수 배열 바인딩하기
+Monkey는 Go언어로 완전히 작성되었기때문에 특별한 컴파일 옵션이 필요하지않습니다.</br>
+또는 컴파일하지않고 다음 과정으로 Monkey를 실행할 수 있습니다.
 ```Go
-let myArray = [1, 2, 3, 4, 5];
+go run main.go
 ```
+물론 위의 두 과정 전부 Monkey의 main.go 파일이 있는 주 디렉토리에서 실행하십시오.</br>
 
-해시타입. 각 값은 해당 키와 연결
-```Go
-let thorsten = {"name": "Thorsten", "age"L 28};
+### REPL환경에서 작성
+어려울 것이 있습니까! REPL 환경에서 자유롭게 Monkey를 활용하십시오.</br>
+다만, Monkey의 REPL은 여러 줄을 인식하지 못 합니다.</br>
+즉, 엔터키를 누르는 순간 문장을 인식하고 실행하므로 모든 문장은 한 줄에 기술하십시오.</br>
+
+### Monkey 파일을 작성
+REPL환경이 싫다면 Monkey파일을 작성하여 읽어 실행하도록 할 수 있습니다!</br>
+Monkey파일은 반드시 확장자가 monkey여야합니다. (ex. main.monkey)</br>
+또한 당신이 실행할 Monkey파일은 반드시 Monkey실행파일이 있는 주 디렉토리에 위치해야 합니다.</br>
+
+### 잘 작성되어있나요?
+표준문법은 그렇습니다! 그리고 실습자가 추가한 기타 문법도 물론 그럴 것입니다.</br>
+본 레포지토리에는 책에서 기술한 표준 test파일들이 있습니다.</br>
+다음 과정으로 test 파일 실행
+```Window
+go test ./(package name that you are want to test)
 ```
-
-배열과 해시 요소는 인덱스 표현식으로 접근
-```Go
-myArray[0] // = 1
-thorsten["name"] // = "Thorsten"
-```
-
-let 문은 함수 바인딩도 가능
-```Go
-let add = fn(a, b) { return a + b; };
-let add = fn(a, b) { a + b; };  // = return a + b. 암묵적인 return값 허용
-
-add(1, 2); // = 3. 함수 호출
-```
-
-
-재귀호출
-```Go
-let fibonacci = fn(x) {
-  if (x == 0) {
-    0
-  } else {
-    if (x == 1) {
-      1
-    } else {
-      fibonacci(x - 1) + fibonacci(x - 2);
-    }
-  }
-};
-```
-
-고차 함수
-```Go
-let twice = fn(x, y) {
-  return f(f(x));
-};
-
-let addTwo = fn(x) {
-  return x + 2;
-};
-
-twice(addTwo, 2); // = 6
-```
-
-출처</br>
-토르슈텐 발, 밑바닥부터 만드는 인터프리터 INTERPRETER in go (n.p.: 도서출판 인사이트, n.d.), 13-15, 281-286, 315-317
-
-### 실습자가 추가한 기능</br>
-STRING * INTEGER
-```Go
-"hello" * 3 //return "hellohellohello"
-"hello" * 0 //return ""
-"hello" * a nagative number //return error
-```
-
-BOOLEAN * BOOLEAN
-```Go
-true * true //return true
-true * false //return false
-false * true //return false
-false * false //return false
-```
-
-BOOLEAN + BOOLEAN
-```Go
-true + true //return true
-true + false //return true
-false + true //return true
-false + false //return fasle
-```
-
-도움말
-```
-monkey -h //print information
-monkey help //too
-```
-
-파일 읽기를 통한 실행
-##### 파일을 읽을 때에는 
-##### 반드시 읽을 Monkey 코드와 Monkey가 같은 폴더 내에 
-##### 위치해야 합니다.
-```
-monkey -c filename.monkey //start interpreting
-monkey start filename.monkey //too
-```
----
-파일을 작성하여 인터프리팅 할 때에는 반드시 코드를 위에서 아래로</br>
-순차적으로 작성하시기 바랍니다.</br>
-다음의 경우 인식 못 함. 또는 오류 발생
-```Go
-x(1, 2)
-
-let x = fn(a, b) {
-  return a + b
-}
-```
-위 코드의 경우 x(1, 2) 문이 실행될 때</br>
-식별자 x가 정의되어 있지않으므로</br>
-식별자 인식 오류가 발생합니다.</br>
-
----
-
-주석 구현
-##### 주석은 /# comments #/ 로 사용합니다.
-##### 주석문의 시작과 끝에 반드시 /# 와 #/ 을 기재해야합니다.
-```Go
-/# puts(1); [1, 2, 3] #/ //주석으로 어휘분석되지않음
-```
-
-실수 구현 FLOAT (operator) FLOAT</br>
-이제부터 Monkey는 실수를 지원합니다!</br>
-아래와 같이 사용가능
-```Go
-10.1 + 10.1 
-10.1 * 10.1
-10.1 - 10.1
-10.1 / 10.1
-10.1 < 10.1
-10.1 > 10.1
-10.1 == 10.1
-10.1 != 10.1
-```
-
-이제부터 Monkey는 미리 정의된 내장함수의 명칭을</br>
-식별자로 사용할 수 없습니다.
-```Go
-let puts = 1 //return error
-```
-[내장함수 목록](../main/evaluator/README.md "내장함수 목록")</br>
-[문법](../main/GRAMMAR_README.md "문법")
