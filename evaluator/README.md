@@ -57,6 +57,17 @@ let a = [1, 2, 3]
 push(a, 4) //return [1, 2, 3, 4]
 ```
 
+push(ARRAY, var, INTEGER) : your variable push in Array at INTEGER</br>
+원하는 위치에 변수를 추가합니다.
+```Go
+let a = [1, 2, 3]
+push(a, 10, 0) //return [10, 1, 2, 3]
+push(a, 10, 1) //return [1, 10, 2, 3]
+push(a, 10, 2) //return [1, 2, 10, 3]
+
+push(a, 10, 3) //return error
+```
+
 ## puts
 puts(args...) : Standard Print Function</br>
 표준 출력함수. 마지막에 null을 출력.

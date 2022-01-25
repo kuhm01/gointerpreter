@@ -113,22 +113,59 @@ var builtins = map[string]*object.Builtin{
 
 	"push": {
 		Fn: func(args ...object.Object) object.Object {
-			if len(args) != 2 {
-				return newError("wrong number of arguments. got=%d, want=2", len(args))
+			switch len(args) {
+			case 2:
+				if args[0].Type() != object.ARRAY_OBJ {
+					return newError("argument to push must be ARRAY, got %s", args[0].Type())
+				}
+
+				arr := args[0].(*object.Array)
+				length := len(arr.Elements)
+
+				newElements := make([]object.Object, length+1) //By Book. make([]object.Object, length+1, length+1)
+				copy(newElements, arr.Elements)
+				newElements[length] = args[1]
+
+				return &object.Array{Elements: newElements}
+
+			case 3:
+				if args[0].Type() != object.ARRAY_OBJ || args[2].Type() != object.INTEGER_OBJ {
+					return newError("argument to push must be ARRAY and INTEGER, got %s %s", args[0].Type(), args[2].Type())
+				}
+
+				arr := args[0].(*object.Array).Elements
+				length := len(arr)
+				index := args[2].(*object.Integer).Value
+
+				if index < 0 || int(index) > length-1 {
+					return newError("Wrong index. that over array scale, got %d", index)
+				}
+
+				temp := make([]object.Object, length)
+				copy(temp, arr)
+
+				newElements := make([]object.Object, length+1)
+
+				temp1 := temp[:index]
+				temp2 := temp[index:]
+
+				for i, v := range temp1 {
+					newElements[i] = v
+				}
+
+				newElements[index] = args[1]
+				tempindex := index + 1
+
+				for _, v := range temp2 {
+					newElements[tempindex] = v
+					tempindex++
+				}
+
+				return &object.Array{Elements: newElements}
+
+			default:
+				return newError("wrong number of arguments. got=%d, want=1, 2", len(args))
 			}
-
-			if args[0].Type() != object.ARRAY_OBJ {
-				return newError("argument to push must be ARRAY, got %s", args[0].Type())
-			}
-
-			arr := args[0].(*object.Array)
-			length := len(arr.Elements)
-
-			newElements := make([]object.Object, length+1) //By Book. make([]object.Object, length+1, length+1)
-			copy(newElements, arr.Elements)
-			newElements[length] = args[1]
-
-			return &object.Array{Elements: newElements}
 		},
 	},
 
