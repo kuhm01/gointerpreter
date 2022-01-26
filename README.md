@@ -56,7 +56,7 @@ Monkey는 다양한 실행옵션을 제공합니다.</br>
 </br>
 옵션 내역
 * -c, start : interpreting monkey file(monkey파일을 읽어 실행합니다.)
-* -, help : printing option list
+* -h, help : printing option list
 
 ### REPL 지원
 Monkey는 옵션없이 실행할 경우, REPL환경을 기본으로 제공합니다.</br>
