@@ -1,8 +1,10 @@
 package evaluator
 
 import (
+	"bufio"
 	"fmt"
 	"monkey/object"
+	"os"
 	"strconv"
 )
 
@@ -311,6 +313,26 @@ var builtins = map[string]*object.Builtin{
 			}
 
 			return &object.String{Value: string(args[0].Type())}
+		},
+	},
+
+	"gets": {
+		Fn: func(args ...object.Object) object.Object {
+			if len(args) != 0 {
+				return newError("gets function should be no parameters. got=%d", len(args))
+			}
+
+			fmt.Fprintf(os.Stdout, "<< ")
+
+			scanner := bufio.NewScanner(os.Stdin)
+			scanned := scanner.Scan()
+			if !scanned {
+				return newError("Critical Scan Error")
+			}
+
+			line := scanner.Text()
+
+			return &object.String{Value: line}
 		},
 	},
 }

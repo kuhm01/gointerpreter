@@ -12,6 +12,7 @@
 10. ___[range](#range "range 함수")___
 11. ___[Itoa](#Itoa "Itoa 함수")___
 12. ___[typeOf](#typeOf "typeOf 함수")___
+13. ___[gets](#gets "gets 함수")___
 
 ---
 _이탤릭체 함수_ 는 책에 없는</br>
@@ -69,7 +70,7 @@ push(a, 10, 3) //return error
 ```
 
 ## puts
-puts(args...) : Standard Print Function</br>
+puts(args...) : Standard Output Function</br>
 표준 출력함수. 마지막에 null을 출력.
 ```Go
 let a = [1, 2, 3]
@@ -166,4 +167,12 @@ typeOf(a) //return INTEGER
 let b = "hello monkey" //string type
 typeOf(b) //return STRING
 //typeOf function is return string
+```
+
+## _gets_
+gets() : Standard Input Function</br>
+표준 입력함수. 입력을 받아 문자열로 반환.
+```Go
+gets() 
+-> // << | (입력대기상태)
 ```
