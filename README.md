@@ -93,3 +93,6 @@ Monkey파일은 반드시 확장자가 monkey여야합니다. (ex. main.monkey)<
 ```Window
 go test ./(package name that you are want to test)
 ```
+테스트할 수 있는 패키지들은 다음과 같습니다.
+```Go
+monkey/lexer, monkey/parser, monkey/ast, monkey/object, monkey/evaluator
