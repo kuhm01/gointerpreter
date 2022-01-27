@@ -66,6 +66,12 @@ type IfExpression struct {
 	Alternative *BlockStatement
 }
 
+type ForExpression struct {
+	Token       token.Token
+	Iterator    Expression
+	Consequence *BlockStatement
+}
+
 type CallExpression struct {
 	Token     token.Token
 	Function  Expression
@@ -240,6 +246,19 @@ func (ie *IfExpression) String() string {
 		out.WriteString("else ")
 		out.WriteString(ie.Alternative.String())
 	}
+
+	return out.String()
+}
+
+func (fe *ForExpression) expressionNode()      {}
+func (fe *ForExpression) TokenLiteral() string { return fe.Token.Literal }
+func (fe *ForExpression) String() string {
+	var out bytes.Buffer
+
+	out.WriteString("for")
+	out.WriteString(fe.Iterator.String())
+	out.WriteString(" ")
+	out.WriteString(fe.Consequence.String())
 
 	return out.String()
 }
