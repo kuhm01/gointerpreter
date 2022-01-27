@@ -97,3 +97,9 @@ go test ./(package name that you are want to test)
 ```Go
 monkey/lexer, monkey/parser, monkey/ast, monkey/object, monkey/evaluator
 ```
+
+### exit(exit)
+Monkey의 REPL에서 exit(exit)를 입력해보십시오.</br>
+그러면 원숭이(Monkey)가 도망가고 Monkey는 종료됩니다!</br>
+이 것은 언어의 함수가 아니라 프로그램 자체가 인식하는 명령문입니다.</br>
+사실 Monkey를 종료하는 효율적인 방법은 Ctrl + Z 이므로 취향대로 사용하십시오.</br>

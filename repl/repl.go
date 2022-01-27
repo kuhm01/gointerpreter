@@ -37,6 +37,13 @@ func Start(in io.Reader, out io.Writer) {
 		}
 
 		line := scanner.Text()
+
+		if line == "exit(exit)" {
+			fmt.Fprintf(out, "Monkey is gone! Good Bye!")
+			fmt.Fprint(out, MONKEY_FACE)
+			break
+		}
+
 		l := lexer.New(line)
 		p := parser.New(l)
 
