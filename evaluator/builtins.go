@@ -30,7 +30,9 @@ const MONKEY_FACE = `            __,__
 ` //Monkey Face is Copy from the code provided book
 
 var functionName = []string{"len", "first", "last", "rest", "push", "puts",
-	"pop", "integer", "float", "range", "Itoa", "typeOf", "gets"}
+	"pop", "integer", "float", "range", "Itoa", "typeOf", "gets",
+	"Atoi",
+}
 
 var builtins = map[string]*object.Builtin{
 	"len": {
@@ -334,6 +336,38 @@ var builtins = map[string]*object.Builtin{
 			line := scanner.Text()
 
 			return &object.String{Value: line}
+		},
+	},
+
+	//Monkey2.0
+	"Atoi": {
+		Fn: func(args ...object.Object) object.Object {
+			if len(args) != 1 {
+				return newError("wrong number of arguments. got=%d, want=1", len(args))
+			}
+			if args[0].Type() != object.STRING_OBJ {
+				return newError("argument to must be STRONG, got %s", args[0].Type())
+			}
+
+			str := args[0].(*object.String).Value
+			i, err := strconv.Atoi(str)
+			if err != nil {
+				return newError("wrong Integer value. don't to string")
+			}
+
+			return &object.Integer{Value: int64(i)}
+		},
+	},
+
+	"Errorf": {
+		Fn: func(args ...object.Object) object.Object {
+			if len(args) >= 1 {
+				if args[0].Type() == object.STRING_OBJ {
+					return newError(args[0].(*object.String).Value)
+				}
+			}
+
+			return newError("throwed Error!")
 		},
 	},
 }

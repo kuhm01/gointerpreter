@@ -70,7 +70,14 @@ func (l *Lexer) NextToken() token.Token {
 		tok.Type = token.STRING
 		tok.Literal = l.readString()
 	case ':':
-		tok = newToken(token.COLON, l.ch)
+		if l.peekChar() == '=' {
+			ch := l.ch
+			l.readChar()
+			literal := string(ch) + string(l.ch)
+			tok = token.Token{Type: token.GOANSIGN, Literal: literal}
+		} else {
+			tok = newToken(token.COLON, l.ch)
+		}
 	case 0:
 		tok.Literal = ""
 		tok.Type = token.EOF

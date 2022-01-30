@@ -16,6 +16,16 @@ func NewEnclosedEnvironment(outer *Environment) *Environment {
 	return env
 }
 
+func (e *Environment) Where(name string) (*Environment, bool) {
+	location := e
+	_, ok := e.store[name]
+	if !ok && e.outer != nil {
+		location, ok = e.outer.Where(name)
+	}
+
+	return location, ok
+}
+
 func (e *Environment) Get(name string) (Object, bool) {
 	obj, ok := e.store[name]
 	if !ok && e.outer != nil {
@@ -28,4 +38,8 @@ func (e *Environment) Get(name string) (Object, bool) {
 func (e *Environment) Set(name string, val Object) Object {
 	e.store[name] = val
 	return val
+}
+
+func (e *Environment) Del(name string) {
+	delete(e.store, name)
 }

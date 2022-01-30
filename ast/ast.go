@@ -31,6 +31,12 @@ type LetStatement struct {
 	Value Expression
 }
 
+type VarStatement struct {
+	Token token.Token
+	Name  *Identifier
+	Otype string
+}
+
 type ReturnStatement struct {
 	Token       token.Token
 	ReturnValue Expression
@@ -159,6 +165,17 @@ func (ls *LetStatement) String() string {
 	return out.String()
 }
 
+func (vs *VarStatement) String() string {
+	var out bytes.Buffer
+
+	out.WriteString(vs.TokenLiteral() + " ")
+	out.WriteString(vs.Name.String() + " ")
+	out.WriteString(vs.Otype)
+	out.WriteString(";")
+
+	return out.String()
+}
+
 func (rs *ReturnStatement) String() string {
 	var out bytes.Buffer
 
@@ -186,6 +203,9 @@ func (i *Identifier) String() string       { return i.Value }
 
 func (ls *LetStatement) statementNode()       {}
 func (ls *LetStatement) TokenLiteral() string { return ls.Token.Literal }
+
+func (vs *VarStatement) statementNode()       {}
+func (vs *VarStatement) TokenLiteral() string { return vs.Token.Literal }
 
 func (rs *ReturnStatement) statementNode()       {}
 func (rs *ReturnStatement) TokenLiteral() string { return rs.Token.Literal }

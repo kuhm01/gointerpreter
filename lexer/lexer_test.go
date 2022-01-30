@@ -30,7 +30,7 @@ func TestNextToken(t *testing.T) {
 	[1, 2];
 	{"foo": "bar"} 
 
-	let float = 10.1;
+	let f = 10.1;
 	/# puts("hello World") #/ 
 	10.1 < 10;
 
@@ -57,9 +57,11 @@ func TestNextToken(t *testing.T) {
 	5.555555555555555555555555555555555;
 	5.;
 
-	for i = range(5) {
+	for i := range(5) {
 		puts(i);
 	}
+	value = 5;
+	var value string;
 	`
 
 	tests := []struct {
@@ -153,7 +155,7 @@ func TestNextToken(t *testing.T) {
 		{token.STRING, "bar"},
 		{token.RBRACE, "}"},
 		{token.LET, "let"},
-		{token.IDENT, "float"},
+		{token.IDENT, "f"},
 		{token.ASSIGN, "="},
 		{token.FLOAT, "10.1"},
 		{token.SEMICOOLON, ";"},
@@ -214,7 +216,7 @@ func TestNextToken(t *testing.T) {
 		{token.SEMICOOLON, ";"},
 		{token.FOR, "for"},
 		{token.IDENT, "i"},
-		{token.ASSIGN, "="},
+		{token.GOANSIGN, ":="},
 		{token.IDENT, "range"},
 		{token.LPAREN, "("},
 		{token.INT, "5"},
@@ -226,6 +228,14 @@ func TestNextToken(t *testing.T) {
 		{token.RPAREN, ")"},
 		{token.SEMICOOLON, ";"},
 		{token.RBRACE, "}"},
+		{token.IDENT, "value"},
+		{token.ASSIGN, "="},
+		{token.INT, "5"},
+		{token.SEMICOOLON, ";"},
+		{token.VAR, "var"},
+		{token.IDENT, "value"},
+		{token.OTYPE, "string"},
+		{token.SEMICOOLON, ";"},
 		{token.EOF, ""},
 	}
 

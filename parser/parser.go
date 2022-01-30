@@ -11,6 +11,7 @@ import (
 const (
 	_int = iota
 	LOWEST
+	ASSIGNMENT
 	EQUALS
 	LESSGREATER
 	SUM
@@ -48,6 +49,8 @@ var precedences = map[token.TokenType]int{
 	token.ASTERISK: PRODUCT,
 	token.LPAREN:   CALL,
 	token.LBRACKET: INDEX,
+	token.ASSIGN:   ASSIGNMENT,
+	token.GOANSIGN: ASSIGNMENT,
 }
 
 func (p *Parser) nextToken() {
@@ -88,6 +91,8 @@ func New(l *lexer.Lexer) *Parser {
 	p.registerInfix(token.GT, p.parseInfixExpression)
 	p.registerInfix(token.LPAREN, p.parseCallExpression)
 	p.registerInfix(token.LBRACKET, p.parseIndexExpression)
+	p.registerInfix(token.ASSIGN, p.parseInfixExpression)
+	p.registerInfix(token.GOANSIGN, p.parseGoInfixExpression)
 
 	p.nextToken()
 	p.nextToken()
@@ -157,6 +162,20 @@ func (p *Parser) parsePrefixExpression() ast.Expression {
 }
 
 func (p *Parser) parseInfixExpression(left ast.Expression) ast.Expression {
+	expression := &ast.InfixExpression{
+		Token:    p.curToken,
+		Operator: p.curToken.Literal,
+		Left:     left,
+	}
+
+	precedence := p.curPrecedence()
+	p.nextToken()
+	expression.Right = p.parseExpression(precedence)
+
+	return expression
+}
+
+func (p *Parser) parseGoInfixExpression(left ast.Expression) ast.Expression {
 	expression := &ast.InfixExpression{
 		Token:    p.curToken,
 		Operator: p.curToken.Literal,
@@ -261,6 +280,8 @@ func (p *Parser) parseStatement() ast.Statement {
 		return p.parseLetStatement()
 	case token.RETURN:
 		return p.parseReturnStatement()
+	case token.VAR:
+		return p.parseVarStatement()
 	default:
 		return p.parseExpressionStatement()
 	}
@@ -285,6 +306,24 @@ func (p *Parser) parseLetStatement() *ast.LetStatement {
 	for p.peekTokenIs(token.SEMICOOLON) {
 		p.nextToken()
 	}
+
+	return stmt
+}
+
+func (p *Parser) parseVarStatement() *ast.VarStatement {
+	stmt := &ast.VarStatement{Token: p.curToken}
+
+	if !p.expectPeek(token.IDENT) {
+		return nil
+	}
+
+	stmt.Name = &ast.Identifier{Token: p.curToken, Value: p.curToken.Literal}
+
+	if !p.expectPeek(token.OTYPE) {
+		return nil
+	}
+
+	stmt.Otype = p.curToken.Literal
 
 	return stmt
 }

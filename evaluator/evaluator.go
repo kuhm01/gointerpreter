@@ -38,6 +38,24 @@ func Eval(node ast.Node, env *object.Environment) object.Object {
 		return evalPrefixExpression(node.Operator, right)
 
 	case *ast.InfixExpression:
+		if node.Operator == ":=" {
+			return evalGoAnsignment(node, env)
+		}
+		if node.Operator == "=" {
+			val := Eval(node.Right, env)
+			if isError(val) {
+				return val
+			}
+
+			outenv, ok := env.Where(node.Left.TokenLiteral())
+			if !ok {
+				return &object.Error{Message: "not exist"}
+			}
+
+			outenv.Set(node.Left.TokenLiteral(), val)
+			return nil
+		}
+
 		left := Eval(node.Left, env)
 		if isError(left) {
 			return left
@@ -77,6 +95,39 @@ func Eval(node ast.Node, env *object.Environment) object.Object {
 		}
 
 		env.Set(node.Name.Value, val)
+
+	case *ast.VarStatement:
+		nameArray := functionName
+
+		for _, tt := range nameArray {
+			if tt == node.Name.Value {
+				return newError("%s is builtin function. you don't use that for identifier", node.Name.Value)
+			}
+		}
+
+		//var otypeVar object.ObjectType
+		var ovar object.Object
+
+		switch node.Otype {
+		case "string":
+			//otypeVar = object.STRING_OBJ
+			ovar = &object.String{Value: ""}
+
+		case "float":
+			//otypeVar = object.FLOAT_OBJ
+			ovar = &object.Float{Value: 0.0}
+
+		case "integer":
+			//otypeVar = object.INTEGER_OBJ
+			ovar = &object.Integer{Value: 0}
+
+		case "boolean":
+			ovar = &object.Boolean{Value: true}
+		default:
+			return &object.Error{Message: "wrong object type"}
+		}
+
+		env.Set(node.Name.Value, ovar)
 
 	case *ast.Identifier:
 		return evalIdentifier(node, env)
@@ -121,9 +172,54 @@ func Eval(node ast.Node, env *object.Environment) object.Object {
 			return index
 		}
 		return evalIndexExpression(left, index)
+
+	case *ast.ForExpression:
+		newEnv := object.NewEnclosedEnvironment(env)
+		name := node.Iterator.(*ast.InfixExpression)
+		literalName := name.Left.TokenLiteral()
+		val := Eval(node.Iterator, newEnv)
+		if isError(val) {
+			return val
+		}
+
+		return evalForExpression(literalName, val, node.Consequence, newEnv)
 	}
 
 	return nil
+}
+
+func evalForExpression(
+	iterator string,
+	itr object.Object,
+	con *ast.BlockStatement,
+	env *object.Environment) object.Object {
+	iteratorArray := itr.(*object.Array)
+
+	roopLength := iteratorArray.Elements
+
+	var result object.Object
+
+	for _, roopObject := range roopLength {
+		env.Set(iterator, roopObject)
+		result = evalBlockStatement(con, env)
+	}
+
+	return result
+}
+
+func evalGoAnsignment(iterator *ast.InfixExpression, env *object.Environment) object.Object {
+	rightVal := Eval(iterator.Right, env)
+	name := iterator.Left.TokenLiteral()
+
+	nameArray := functionName
+
+	for _, tt := range nameArray {
+		if tt == name {
+			return newError("%s is builtin function. you don't use that for identifier", name)
+		}
+	}
+
+	return env.Set(name, rightVal)
 }
 
 /* //unused function
@@ -430,12 +526,12 @@ func evalBlockStatement(block *ast.BlockStatement, env *object.Environment) obje
 }
 
 func evalIdentifier(node *ast.Identifier, env *object.Environment) object.Object {
-	if builtin, ok := builtins[node.Value]; ok {
-		return builtin
-	}
-
 	if val, ok := env.Get(node.Value); ok {
 		return val
+	}
+
+	if builtin, ok := builtins[node.Value]; ok {
+		return builtin
 	}
 
 	return newError("identifier not found: " + node.Value)

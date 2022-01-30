@@ -13,6 +13,8 @@
 11. ___[Itoa](#Itoa "Itoa 함수")___
 12. ___[typeOf](#typeOf "typeOf 함수")___
 13. ___[gets](#gets "gets 함수")___
+14. ___[Atoi](#Atoi "Atoi 함수")___
+15. ___[Errorf](#Errorf "Errorf 함수")___
 
 ---
 _이탤릭체 함수_ 는 책에 없는</br>
@@ -176,3 +178,30 @@ gets() : Standard Input Function</br>
 gets() 
 -> // << | (입력대기상태)
 ```
+</br>
+
+---
+# Monkey2.0
+Monkey가 2.0으로 새롭게 업데이트되었습니다!</br>
+아래에서 우리는 새로 추가된 다양한 함수를 소개합니다!</br>
+
+## _Atoi_
+Atoi(string) : return integer from string</br>
+입력받은 문자열을 정수로 변환합니다.
+```Go
+Atoi("10") //return 10 (integer type)
+Atoi("10.12") //return error
+```
+
+## _Errorf_
+Errorf(args...) : return error</br>
+에러를 반환합니다.
+```Go
+Errorf() //return error
+Errorf(string type var) //return var
+Errorf(args...) //return
+```
+~~어디 쓰이나요? 저도 몰라요~~</br>
+</br>
+
+##### 많이 없다고 당황하지마세요. 앞으로 많이 추가 될 것입니다.

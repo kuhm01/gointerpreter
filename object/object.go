@@ -112,6 +112,16 @@ type Error struct {
 
 type Null struct{}
 
+/*
+type NativeValue struct {
+	Value Object
+	Otype ObjectType
+}
+
+func (nv *NativeValue) Type() ObjectType { return nv.Otype }
+func (nv *NativeValue) Inspect() string  { return nv.Value.Inspect() }
+*/
+
 func (i *Integer) Inspect() string  { return fmt.Sprintf("%d", i.Value) }
 func (i *Integer) Type() ObjectType { return INTEGER_OBJ }
 

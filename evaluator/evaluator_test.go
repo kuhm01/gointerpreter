@@ -93,6 +93,32 @@ func TestIfElseExpression(t *testing.T) {
 	}
 }
 
+//only for debugging
+func TestForExpression(t *testing.T) {
+	input := `
+	let a = 1
+	for value := range(5) {
+		a = a + value
+		}`
+
+	evaluated := testEval(input)
+	if evaluated != nil {
+		return
+	}
+}
+
+func TestAssignment(t *testing.T) {
+	input := `
+	let a = 15;
+	a = ((15 + 2) * 3);
+	`
+
+	evaluated := testEval(input)
+	if evaluated != nil {
+		return
+	}
+}
+
 func TestArrayIndexExpression(t *testing.T) {
 	tests := []struct {
 		input    string
@@ -257,6 +283,21 @@ func TestLetStatements(t *testing.T) {
 
 	for _, tt := range tests {
 		testIntegerObject(t, testEval(tt.input), tt.expected)
+	}
+}
+
+func TestVarStatements(t *testing.T) {
+	input := `var value string;
+	value;`
+
+	stmt := testEval(input)
+	result := stmt.(*object.String)
+	if result.Value != "" {
+		t.Fatalf("wrong value. got=%s", result.Value)
+	}
+
+	if result.Type() != object.STRING_OBJ {
+		t.Fatalf("wrong type. got=%s", result.Type())
 	}
 }
 
