@@ -8,7 +8,7 @@
 2. [구현 정보](#구현-정보 "구현 정보")
 3. [Monkey](#Monkey "몽키")
 4. [Monkey 실행](#실행해보기 "Monkey 실행해보기")
-5. [Monkey 2.0](##monkey20 "Monkey 2.0!")
+5. [Monkey 2.0](#monkey20 "Monkey 2.0!")
 
 
 
@@ -118,8 +118,8 @@ Monkey의 REPL에서 exit(exit)를 입력해보십시오.</br>
 
 이 외에도 계속 많은 것이 추가될 것입니다!</br>
 다음에서 상세한 사항 확인</br> 
-[새로운 문법](../main/GRAMMAR_README.md#Monkey2.0 "#monkey20 문법")</br>
-[새로운 함수](../main/evaluator/README.md#Monkey2.0 "#monkey20 함수")</br>
+[새로운 문법](https://github.com/kuhm01/gointerpreter/blob/main/GRAMMAR_README.md#monkey20 "Monkey2.0 문법")</br>
+[새로운 함수](https://github.com/kuhm01/gointerpreter/blob/main/evaluator/README.md#monkey20 "Monkey2.0 함수")</br>
 
 ### for-loop
 Monkey가 드디어 대부분의 언어에 있는 for-loop를 지원합니다!</br>
