@@ -22,6 +22,7 @@ const (
 	ARRAY_OBJ        = "ARRAY"
 	HASH_OBJ         = "HASH"
 	ERROR_OBJ        = "ERROR"
+	QUOTE_OBJ        = "QUOTE"
 )
 
 type Object interface {
@@ -112,6 +113,10 @@ type Error struct {
 
 type Null struct{}
 
+type Quote struct {
+	Node ast.Node
+}
+
 /*
 type NativeValue struct {
 	Value Object
@@ -121,6 +126,11 @@ type NativeValue struct {
 func (nv *NativeValue) Type() ObjectType { return nv.Otype }
 func (nv *NativeValue) Inspect() string  { return nv.Value.Inspect() }
 */
+
+func (q *Quote) Type() ObjectType { return QUOTE_OBJ }
+func (q *Quote) Inspect() string {
+	return "QUOTE(" + q.Node.String() + ")"
+}
 
 func (i *Integer) Inspect() string  { return fmt.Sprintf("%d", i.Value) }
 func (i *Integer) Type() ObjectType { return INTEGER_OBJ }
