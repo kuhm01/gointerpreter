@@ -22,6 +22,8 @@ var keywords = map[string]TokenType{
 	"integer": OTYPE,
 	"float":   OTYPE,
 	"boolean": OTYPE,
+
+	"macro": MACRO,
 }
 
 func LookupIdent(ident string) TokenType {
@@ -78,4 +80,6 @@ const (
 
 	VAR   = "VAR"
 	OTYPE = "OTYPE"
+
+	MACRO = "MACRO"
 )

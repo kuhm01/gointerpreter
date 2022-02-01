@@ -52,6 +52,7 @@ func startLPEmonkeyinterpreting(argv string) {
 
 	out := os.Stdout
 	env := object.NewEnvironment()
+	macroenv := object.NewEnvironment()
 
 	l := lexer.New(input)
 	p := parser.New(l)
@@ -63,7 +64,10 @@ func startLPEmonkeyinterpreting(argv string) {
 		return
 	}
 
-	evaluated := evaluator.Eval(program, env)
+	evaluator.DefineMacros(program, macroenv)
+	expanded := evaluator.ExpandMacros(program, macroenv)
+
+	evaluated := evaluator.Eval(expanded, env)
 	if evaluated != nil {
 		io.WriteString(out, evaluated.Inspect())
 		io.WriteString(out, "\n")
